@@ -1,0 +1,76 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font: 12px Arial, sans-serif;
+  color: #556;
+  background-color: #f1f1f1;
+}
+
+
+.wrapper {
+  width: 950px;
+  margin: auto;
+  position: relative; 
+}
+
+.wrapper .header {
+  font: 14px Georgia, serif;
+  background: #606A85;
+  color: #ECEFF6;
+  padding: 10px 30px;
+  text-transform: uppercase;
+}
+
+.wrapper .content {
+  overflow: hidden;
+  position: relative;
+  background: #fff;
+  padding: 20px 30px;
+}
+
+.wrapper .content .test {
+  overflow: hidden;
+  padding-bottom: 20px;
+}
+.wrapper .content .test h1 {
+  background: #ECEFF6;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+}
+.wrapper .content .test h1 span {
+  font-size: 12px;
+}
+
+.wrapper .content .test table.test_details{
+  float: left;
+  margin-top: 10px;
+}
+.wrapper .content .test table th {
+  text-align: left;
+  padding-left: 10px;
+}
+.wrapper .content .test .chart{
+  float: right;
+}
+
+.wrapper .footer {
+  padding: 10px;
+  background-color: #eee;
+  overflow: hidden;
+  color: #6D6E70;
+  border-top: solid #ddd 5px;
+}
+.wrapper .footer .copyright {
+  float: right;
+  font: 10px/15px Georgia, serif;
+  text-align: right;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.wrapper .footer .copyright a {
+  color: #6D6E70;
+  font: 10px/15px Georgia, serif;
+}

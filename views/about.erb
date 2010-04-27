@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Rifgraf</title>
+	<link href="main.css" media="screen" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<div id="header">
+		<div id="logo">rifgraf</div>
+
+		<ul id="navigation">
+			<li><a href="http://adam.blog.heroku.com/past/tags/rifgraf">News</a></li>
+			<li><a href="http://github.com/adamwiggins/rifgraf">Source</a></li>
+		</ul>
+	</div>
+
+	<div id="content">
+
+		<a href="/graphs/sample"><img id="sample" src="sample.png" /></a>
+
+		<p id="blurb">Rifgraf is a fire-and-forget web service for displaying graphs of data collected over time.  Post your data points periodically via rest calls.  Then view a graph of the data at any time in the future.</p>
+
+		<p>Let's try it!</p>
+
+		<h3>1. Post some data points.</h3>
+
+		<p>You'll probably do this from a cron job, but try it from an irb session first.</p>
+
+		<code>
+		RestClient.post 'http://rifgraf.heroku.com/graphs/sample', :value =&gt; rand(99)
+		</code>
+
+		<p>Or for the Ruby-impaired, from the shell:</p>
+
+		<code>
+		$ curl http://rifgraf.heroku.com/graphs/sample -X POST -d value=$RANDOM
+		</code>
+
+		<p>Replace "sample" with whatever graph name you want.  This is the graph key.</p>
+
+		<h3>2. Visit your graph.</h3>
+
+		<p><a href="/graphs/sample">http://rifgraf.heroku.com/graphs/sample</a></p>
+
+		<p>Replace "sample" with your chosen key.  You're catching on, right?</p>
+
+		<h3>3. Bask in the glory of the zoomable graph.</h3>
+
+		<p>...with no clutter in your app's main database.</p>
+
+		<p>Rifgraf automatically timestamps data that you post, although you can include a :timestamp parameter if  you want to use a different one.  i.e.</p>
+
+		<code>
+		RestClient.post 'http://rifgraf.heroku.com/graphs/sample', :value =&gt; 42, :timestamp =&gt; '1999-31-12'
+		</code>
+
+		<p>Clear your all data from a graph and start fresh - the "how" won't be surprising to restafarians:</p>
+
+		<code>
+		RestClient.delete 'http://rifgraf.heroku.com/graphs/sample'
+		</code>
+
+	<p>Compare multiple graphs on the same chart with the "and" parameter: <a href="/graphs/pirates?and=ninjas,robots">http://rifgraf.heroku.com/graphs/pirates?and=ninjas,robots</a></p>
+
+	<p>Use rifgraf as a service by posting to rifgraf.heroku.com, or <a href="http://github.com/adamwiggins/rifgraf">grab the source</a> and host your own.</p>
+
+	<hr/>
+
+	<p>Created by <a href="http://adam.blog.heroku.com/">Adam Wiggins</a>, released under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT license</a>.  Built with <a href="http://github.com/bmizerany/sinatra/tree/master">Sinatra</a>, <a href="http://sequel.rubyforge.org/">Sequel</a>, <a href="http://www.ruby-lang.org/">Ruby</a>, and <a href="http://www.amcharts.com/">amCharts</a>.</p>
+
+	</div>
+</body>
+</html>
