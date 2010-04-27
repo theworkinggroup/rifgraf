@@ -1,7 +1,3 @@
-require 'sinatra'
-require 'sequel'
-require 'json'
-
 module Points
   def self.data
     @@data ||= make
