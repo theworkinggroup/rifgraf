@@ -7,7 +7,7 @@ require 'main'
 
 HOME_URL = {
   'development' => 'http://rifgraf.local',
-  'production'  => 'http://rif.graf.postageapp.local'
+  'production'  => 'http://rif.graf.postageapp.com'
 }
 
 root_dir = File.dirname(__FILE__)

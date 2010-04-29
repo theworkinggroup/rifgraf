@@ -1,18 +1,22 @@
 <div id="content">
   <img id="sample" src="sample.png" />
-  <h3>Available charts</h3>
-  <ul>
-    <% graphs.each do |graph| %>
-      <li><a href="<%=HOME_URL[ENV['RACK_ENV']]%>/graphs/<%= graph %>"><%= graph %></a></li>
-    <% end %>
-  </ul>
+  <h2>Available charts</h2>
+  <% if graphs.empty? %>
+    <p>No graphs available</p>
+  <% else %>
+    <ul>
+      <% graphs.each do |graph| %>
+        <li><a href="<%=HOME_URL[ENV['RACK_ENV']]%>/graphs/<%= graph %>"><%= graph %></a></li>
+      <% end %>
+    </ul>
+  <% end %>
 
-
+  <h2>Introduction</h2>
   <p id="blurb">Rifgraf is a fire-and-forget web service for displaying graphs of data collected over time.  Post your data points periodically via rest calls.  Then view a graph of the data at any time in the future.</p>
 
   <p>Let's try it!</p>
 
-  <h3>1. Post some data points.</h3>
+  <h2>1. Post some data points.</h2>
 
   <p>You'll probably do this from a cron job, but try it from an irb session first.</p>
 
@@ -28,13 +32,13 @@
 
   <p>Replace "sample" with whatever graph name you want.  This is the graph key.</p>
 
-  <h3>2. Visit your graph.</h3>
+  <h2>2. Visit your graph.</h2>
 
   <p><a href="/graphs/sample"><%=HOME_URL[ENV['RACK_ENV']]%>/graphs/sample</a></p>
 
   <p>Replace "sample" with your chosen key.  You're catching on, right?</p>
 
-  <h3>3. Bask in the glory of the zoomable graph.</h3>
+  <h2>3. Bask in the glory of the zoomable graph.</h2>
 
   <p>...with no clutter in your app's main database.</p>
 

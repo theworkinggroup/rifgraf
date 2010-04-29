@@ -71,6 +71,7 @@ html, body {
   display: block;
   clear: both;
   margin: 5px 0;
+  background: #eee;
 }
 
 .wrapper .footer {
