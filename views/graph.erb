@@ -39,21 +39,22 @@
     });
   }
   
+  function update_chart() {
+    $.ajax({
+      url: "/graphs/<%=id%>/data.json?and=<%=params[:and]%>", 
+      success: function(response) {
+        if (response != '') {
+          $('#chart_<%=id%>').html('');
+          draw_chart(response);
+        }
+        setTimeout('update_chart()', 5000)
+      }, 
+      dataType: "json"
+    })
+  }
   
   $(document).ready(function () {
-    draw_chart(<%= data %>)
-    setInterval(function() {
-      $.ajax(
-        {
-          url: "/graphs/<%=id%>/data.json?and=<%=params[:and]%>", 
-          success: function(response) {
-            $('#chart_<%=id%>').html('');
-            draw_chart(response);
-          }, 
-          dataType: "json"
-        }
-      ) },5000)
-    
+    update_chart()
   });
 </script>
 
