@@ -23,6 +23,10 @@ html, body {
   padding: 10px 30px;
   text-transform: uppercase;
 }
+.wrapper .header a {
+  color: #fff;
+  text-decoration: none;
+}
 
 .wrapper .content {
   overflow: hidden;
@@ -31,29 +35,42 @@ html, body {
   padding: 20px 30px;
 }
 
-.wrapper .content .test {
-  overflow: hidden;
-  padding-bottom: 20px;
-}
-.wrapper .content .test h1 {
-  background: #ECEFF6;
-  padding: 5px 10px;
-  margin-bottom: 10px;
-}
-.wrapper .content .test h1 span {
-  font-size: 12px;
+.wrapper .content ul {
+  padding-left: 30px;
+  margin: 10px 0;
 }
 
-.wrapper .content .test table.test_details{
-  float: left;
-  margin-top: 10px;
+.wrapper .content h1 {
+  padding: 10px 0;
 }
-.wrapper .content .test table th {
-  text-align: left;
-  padding-left: 10px;
+
+.wrapper .content p {
+  padding: 10px 0;
+  font-size: 14px;
 }
-.wrapper .content .test .chart{
+
+.wrapper .content img {
+  border: solid #000 1px;
   float: right;
+}
+
+.wrapper .content a {
+  color: #606A85;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.wrapper .content a:hover {
+  text-decoration: underline;
+}
+
+.wrapper .content code {
+  padding: 0.7em;
+  font-family: Monaco, monospace;
+  border: 2px solid #999;
+  display: block;
+  clear: both;
+  margin: 5px 0;
 }
 
 .wrapper .footer {

@@ -1,61 +1,58 @@
-<?xml version='1.0' encoding='utf-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
-<head>
-  <script type="text/javascript" src="/javascripts/jquery.js"></script>
-  <script type="text/javascript" src="/javascripts/jquery.jqplot.min.js"></script>
-  <script type="text/javascript" src="/javascripts/jqplot.canvasTextRenderer.min.js"></script>
-  <script type="text/javascript" src="/javascripts/jqplot.canvasAxisLabelRenderer.min.js"></script>
-  <script type="text/javascript" src="/javascripts/jqplot.highlighter.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="/stylesheets/jquery.jqplot.min.css" />
-  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
-</head>
-<body>
-  <div class="wrapper">
-    <div class="header"><h1>Load test results</h1></div>
-    <div class="content">
-        <div class="chart" id="chart_<%=id%>" style="height:300px;"></div>
-        <script language="javascript" type="text/javascript">
-          $(document).ready(function () {
-            $.jqplot('chart_<%=id%>', <%= data.to_json %>, 
-            {
-              seriesColors: [ "#4bb2c5", "#57B24F", "#F9A52B", "#dddddd"],
-              legend: { show: true, location: 'se' },
-              axes: {
-                xaxis: {
-                  label       : '',
-                  tickOptions : { formatString: '%d' }
-                },
-                yaxis: {
-                  label         : '<%= id.capitalize %>',
-                  labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
-                  min: 0,
-                  tickOptions   : { formatString: '%.3f'},
-                  autoscale   : true
-                },
-                <% others.each_index do |i| %>
-                  y<%=i+2%>axis: { 
-                    label         : '<%= others[i].capitalize %>',
-                    min           : 0,
-                    labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
-                    autoscale   : true
-                  },
-                <% end %>
-              },
-              series: [
-                { label: '<%= id.capitalize %>' },
-                <% others.each_index do |i| %>
-                   { yaxis : 'y<%=i+2%>axis', label : '<%= others[i].capitalize %>'},
-                <% end %>
-              ],
-              axesDefaults:{useSeriesColor: true}
-            });
-          });
-        </script>
-    </div>
-    <div class="footer">
-      <div class="copyright">&copy; 2010 <a href="http://twg.ca" target="_blank">The Working Group, Inc</a></div>
-    </div>
-  </div>
-</body>
-</html>
+<script language="javascript" type="text/javascript">
+  function draw_chart(data) {
+    $.jqplot('chart_<%=id%>', data, 
+    {
+      seriesColors: [ "#4bb2c5", "#57B24F", "#F9A52B", "#dddddd"],
+      legend: { show: true, location: 'se' },
+      axes: {
+        xaxis: {
+          renderer    : $.jqplot.DateAxisRenderer,
+          tickOptions : { formatString: '%b %#d, %Y<br/>%I:%M:%S %p' }
+        },
+        yaxis: {
+          label         : '<%= id.capitalize %>',
+          labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
+          min: 0,
+          tickOptions   : { formatString: '%.3f'},
+          autoscale   : true
+        },
+        <% others.each_index do |i| %>
+          y<%=i+2%>axis: { 
+            label         : '<%= others[i].capitalize %>',
+            min           : 0,
+            labelRenderer : $.jqplot.CanvasAxisLabelRenderer,
+            autoscale   : true
+          },
+        <% end %>
+      },
+      series: [
+        { label: '<%= id.capitalize %>' },
+        <% others.each_index do |i| %>
+           { yaxis : 'y<%=i+2%>axis', label : '<%= others[i].capitalize %>'},
+        <% end %>
+      ],
+      axesDefaults:{useSeriesColor: true}
+    });
+  }
+  
+  
+  $(document).ready(function () {
+    draw_chart(<%= data %>)
+    setInterval(function() {
+      $.ajax(
+        {
+          url: "/graphs/<%=id%>/data.json?and=<%=params[:and]%>", 
+          success: function(response) {
+            $('#chart_<%=id%>').html('');
+            draw_chart(response);
+          }, 
+          dataType: "json"
+        }
+      ) },5000)
+    
+  });
+</script>
+
+
+<h1>Chart for <%= params[:id] %> <%= " and #{params[:and]}" if params[:and] %></h1>
+<div class="chart" id="chart_<%=id%>" style="height:300px;"></div>

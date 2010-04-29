@@ -2,7 +2,13 @@ require 'rubygems'
 require 'sinatra'
 require 'sequel'
 require 'json'
+require 'yaml'
+require 'main'
 
+HOME_URL = {
+  'development' => 'http://rifgraf.local',
+  'production'  => 'http://rif.graf.postageapp.local'
+}
 
 root_dir = File.dirname(__FILE__)
 
@@ -11,5 +17,4 @@ set :root,        root_dir
 set :app_file,    File.join(root_dir, 'main.rb')
 disable :run
 
-require 'main'
 run Sinatra::Application 

@@ -20,28 +20,33 @@ module Points
   end
 end
 
+# --------------------------------------- Helpers
 helpers do
   def graphs_from_params(separator)
     [ params[:id] ] + (params[:and] || '').split(separator)
   end
+  
+  def collect_data_points
+    data = []
+    graphs_from_params(',').each do |graph|
+      points = Points.data.filter(:graph => graph).reverse_order(:timestamp) 
+      data << points.collect { |point| [point[:timestamp].to_i*1000, point[:value].to_f] } if points.count > 0
+    end
+    data.to_json
+  end
 end
 
+
 get '/' do
-  erb :about
+  graphs = []
+  Points.data.group(:graph).select(:graph).each do |row|
+    graphs << row[:graph]
+  end
+  erb :about, :locals => {:graphs => graphs}
 end
 
 get '/graphs/:id' do
-  graphs_from_params(',').each do |graph|
-    throw :halt, [ 404, "No such graph \"#{graph}\"" ] unless Points.data.filter(:graph => graph).count > 0
-  end
-  
-  data = []
-  graphs_from_params(',').each do |graph|
-    points = Points.data.filter(:graph => graph).reverse_order(:timestamp) 
-    data << points.collect { |point| [point[:timestamp].to_i, point[:value].to_f] }
-  end
-  
-  erb :graph, :locals => { :data => data, :id => params[:id], :others => (params[:and] || '').split(',')}
+  erb :graph, :locals => { :data => collect_data_points, :id => params[:id], :others => (params[:and] || '').split(',')}
 end
 
 post '/graphs/:id' do
@@ -52,4 +57,9 @@ end
 delete '/graphs/:id' do
   Points.data.filter(:graph => params[:id]).delete
   "ok"
+end
+
+get '/graphs/:id/data.json' do
+  content_type 'application/json'
+  collect_data_points
 end

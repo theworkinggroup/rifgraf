@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+  <script type="text/javascript" src="/javascripts/jquery.js"></script>
+  <script type="text/javascript" src="/javascripts/jquery.jqplot.min.js"></script>
+  <script type="text/javascript" src="/javascripts/jqplot.canvasTextRenderer.min.js"></script>
+  <script type="text/javascript" src="/javascripts/jqplot.canvasAxisLabelRenderer.min.js"></script>
+  <script type="text/javascript" src="/javascripts/jqplot.highlighter.min.js"></script>
+  <script type="text/javascript" src="/javascripts/jqplot.dateAxisRenderer.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/jquery.jqplot.min.css" />
+  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css" />
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="header"><h1><a href="<%=HOME_URL[ENV['RACK_ENV']]%>">Rifgraf</a></h1></div>
+    <div class="content">
+      <%= yield %>
+    </div>
+    <div class="footer">
+      <div class="copyright">&copy; 2010 <a href="http://twg.ca" target="_blank">The Working Group, Inc</a></div>
+    </div>
+  </div>
+</body>
+</html>
