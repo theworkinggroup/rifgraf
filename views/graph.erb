@@ -25,13 +25,17 @@
           },
         <% end %>
       },
+      seriesDefaults : {
+        lineWidth : 1,
+        markerOptions : { size : 3, shadow: false }
+      },
       series: [
         { label: '<%= id.capitalize %>' },
         <% others.each_index do |i| %>
            { yaxis : 'y<%=i+2%>axis', label : '<%= others[i].capitalize %>'},
         <% end %>
       ],
-      axesDefaults:{useSeriesColor: true}
+      axesDefaults:{useSeriesColor: true}      
     });
   }
   
