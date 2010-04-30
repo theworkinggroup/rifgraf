@@ -1,14 +1,45 @@
+<script language="javascript" type="text/javascript">
+  function delete_graph(graph) {
+    $.ajax({
+      url: '/graphs/' + graph, 
+      type: 'delete',
+      success: function(response) { window.location.reload() }
+    })
+  }
+  
+  function show_graph() {
+    var url = '/graphs/';
+    var first = true;
+    $('table.charts input:checked').each(function(){
+      if (first) {
+        first = false;
+        url += this.name + '?and=';
+      } else {
+        url += this.name + ',';
+      }
+    })
+    window.location = '<%=HOME_URL[ENV['RACK_ENV']]%>'+url;
+  }
+</script>
+
 <div id="content">
   <img id="sample" src="sample.png" />
   <h2>Available charts</h2>
   <% if graphs.empty? %>
     <p>No graphs available</p>
   <% else %>
-    <ul>
+    <table class="charts" cellpadding=0 cellspacing=0>
       <% graphs.each do |graph| %>
-        <li><a href="<%=HOME_URL[ENV['RACK_ENV']]%>/graphs/<%= graph %>"><%= graph %></a></li>
+        <tr>
+          <td><input type="checkbox" name="<%=graph%>"/></td>
+          <td><a href="<%=HOME_URL[ENV['RACK_ENV']]%>/graphs/<%= graph %>"><%= graph %></a></td>
+          <td>(<a href="#" onclick="delete_graph('<%= graph %>')">Delete</a>)</td>
+        </tr>
       <% end %>
-    </ul>
+      <tr>
+        <td colspan="3"><input type="button" value="Show charts" onclick="show_graph()"></td>
+      </tr>
+    </table>
   <% end %>
 
   <h2>Introduction</h2>

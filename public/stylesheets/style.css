@@ -74,6 +74,14 @@ html, body {
   background: #eee;
 }
 
+.wrapper .content table.charts{
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+.wrapper .content table.charts td{
+  padding: 2px 10px;
+}
+  
 .wrapper .footer {
   padding: 10px;
   background-color: #eee;
