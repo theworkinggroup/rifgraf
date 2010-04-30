@@ -35,7 +35,8 @@
            { yaxis : 'y<%=i+2%>axis', label : '<%= others[i].capitalize %>'},
         <% end %>
       ],
-      axesDefaults:{useSeriesColor: true}      
+      axesDefaults:{useSeriesColor: true},
+      cursor:{zoom:true, clickReset:true}  
     });
   }
   
