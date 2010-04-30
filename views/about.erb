@@ -33,7 +33,7 @@
         <tr>
           <td><input type="checkbox" name="<%=graph%>"/></td>
           <td><a href="<%=HOME_URL[ENV['RACK_ENV']]%>/graphs/<%= graph %>"><%= graph %></a></td>
-          <td>(<a href="#" onclick="delete_graph('<%= graph %>')">Delete</a>)</td>
+          <td>(<a href="#" onclick="delete_graph('<%= graph %>');return false;">Delete</a>)</td>
         </tr>
       <% end %>
       <tr>
