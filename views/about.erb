@@ -1,10 +1,17 @@
 <script language="javascript" type="text/javascript">
-  function delete_graph(graph) {
+  function delete_graph(graph, callback) {
     $.ajax({
       url: '/graphs/' + graph, 
       type: 'delete',
-      success: function(response) { window.location.reload() }
+      success: function(response) { eval(callback) }
     })
+  }
+  
+  function delete_selected_graphs() {
+    $('table.charts input:checked').each(function(){
+      delete_graph(this.name, 'null');
+    });
+    window.location.reload();
   }
   
   function show_graph() {
@@ -33,11 +40,14 @@
         <tr>
           <td><input type="checkbox" name="<%=graph%>"/></td>
           <td><a href="<%=HOME_URL[ENV['RACK_ENV']]%>/graphs/<%= graph %>"><%= graph %></a></td>
-          <td>(<a href="#" onclick="delete_graph('<%= graph %>');return false;">Delete</a>)</td>
+          <td>(<a href="#" onclick="delete_graph('<%= graph %>', 'window.location.reload()');return false;">Delete</a>)</td>
         </tr>
       <% end %>
       <tr>
-        <td colspan="3"><input type="button" value="Show charts" onclick="show_graph()"></td>
+        <td colspan="3">
+          <input type="button" value="Show selected charts" onclick="show_graph()">
+          <input type="button" value="Delete selected charts" onclick="delete_selected_graphs()">
+        </td>
       </tr>
     </table>
   <% end %>
